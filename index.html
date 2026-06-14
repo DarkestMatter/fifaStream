@@ -17,39 +17,134 @@
       color: #f8fafc;
     }
     .container {
-      text-align: center;
-      padding: 2rem;
-      max-width: 640px;
-      border-radius: 16px;
-      background: rgba(15, 23, 42, 0.85);
-      box-shadow: 0 20px 60px rgba(15, 23, 42, 0.35);
+      width: min(100%, 1200px);
+      padding: 1.5rem;
+      border-radius: 20px;
+      background: rgba(15, 23, 42, 0.92);
+      box-shadow: 0 24px 80px rgba(15, 23, 42, 0.3);
+    }
+    .header {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1rem;
+    }
+    .title-group {
+      text-align: left;
     }
     h1 {
-      margin-bottom: 0.5rem;
-      font-size: 3rem;
+      margin: 0;
+      font-size: clamp(2rem, 4vw, 3rem);
     }
-    p {
-      margin: 0.75rem 0 0;
+    .button-group {
+      display: flex;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    button {
+      border: none;
+      border-radius: 999px;
+      padding: 0.85rem 1.25rem;
+      font-size: 1rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease, color 0.2s ease;
+      background: rgba(56, 189, 248, 0.17);
+      color: #e2e8f0;
+    }
+    button.active,
+    button:hover {
+      background: #38bdf8;
+      color: #0f172a;
+      transform: translateY(-1px);
+    }
+    .iframe-panel {
+      position: relative;
+      width: 100%;
+      height: 70vh;
+      min-height: 420px;
+      border-radius: 16px;
+      overflow: hidden;
+      background: #000;
+    }
+    iframe {
+      width: 100%;
+      height: 100%;
+      border: 0;
+    }
+    .note {
+      margin-top: 1rem;
+      color: #cbd5e1;
       line-height: 1.6;
+      text-align: left;
     }
-    a {
-      color: #38bdf8;
-      text-decoration: none;
+    @media (max-width: 768px) {
+      .header {
+        flex-direction: column;
+        align-items: stretch;
+      }
+      .title-group {
+        text-align: center;
+      }
     }
   </style>
 </head>
 <body>
-  <div class="container" height="50%">
-    <iframe
-          src="https://junkieembeds.pages.dev/embed/fusballtv1uhd-de"
-          width="100%"
-          height="100%"
-          frameBorder="0"
-          scrolling="no"
-          allow="autoplay; encrypted-media; picture-in-picture; fullscreen; resolution-change"
-          allowFullScreen
-          referrerPolicy="origin"
-        ></iframe>
+  <div class="container">
+    <div class="header">
+      <div class="title-group">
+        <h1>FifaStream</h1>
+        <p class="note">Use the buttons to switch between available video embeds.</p>
+      </div>
+      <div class="button-group">
+        <button id="btn-fusball" class="active" type="button" onclick="switchIframe('fusball')">FusballTV</button>
+        <button id="btn-fox" type="button" onclick="switchIframe('fox')">Fox Sports 1</button>
+      </div>
+    </div>
+
+    <div class="iframe-panel">
+      <iframe
+        id="fusballIframe"
+        src="https://junkieembeds.pages.dev/embed/fusballtv1uhd-de"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen; resolution-change"
+        allowfullscreen
+        referrerpolicy="origin"
+      ></iframe>
+
+      <iframe
+        id="foxIframe"
+        src="https://junkieembeds.pages.dev/embed/fox-sports-1-4k"
+        allow="autoplay; encrypted-media; picture-in-picture; fullscreen"
+        allowfullscreen
+        referrerpolicy="origin"
+        style="display: none;"
+      ></iframe>
+    </div>
+
+    <p class="note">If a stream does not show, try refreshing the page or selecting the other source.</p>
   </div>
+
+  <script>
+    function switchIframe(source) {
+      const fusball = document.getElementById('fusballIframe');
+      const fox = document.getElementById('foxIframe');
+      const btnFusball = document.getElementById('btn-fusball');
+      const btnFox = document.getElementById('btn-fox');
+
+      if (source === 'fox') {
+        fusball.style.display = 'none';
+        fox.style.display = 'block';
+        btnFusball.classList.remove('active');
+        btnFox.classList.add('active');
+      } else {
+        fox.style.display = 'none';
+        fusball.style.display = 'block';
+        btnFox.classList.remove('active');
+        btnFusball.classList.add('active');
+      }
+    }
+  </script>
 </body>
 </html>
