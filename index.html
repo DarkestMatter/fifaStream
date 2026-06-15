@@ -93,16 +93,6 @@
 </head>
 <body>
   <div class="container">
-    <div class="header">
-      <div class="title-group">
-        <h1>FifaStream</h1>
-        <p class="note">Use the buttons to switch between available video embeds.</p>
-      </div>
-      <div class="button-group">
-        <button id="btn-fusball" class="active" type="button" onclick="switchIframe('fusball')">FusballTV</button>
-        <button id="btn-fox" type="button" onclick="switchIframe('fox')">Fox Sports 1</button>
-      </div>
-    </div>
 
     <div class="iframe-panel">
       <iframe
@@ -122,29 +112,7 @@
         style="display: none;"
       ></iframe>
     </div>
-
-    <p class="note">If a stream does not show, try refreshing the page or selecting the other source.</p>
+     <p class="note">If a stream does not show, try refreshing the page or selecting the other source.</p>
   </div>
-
-  <script>
-    function switchIframe(source) {
-      const fusball = document.getElementById('fusballIframe');
-      const fox = document.getElementById('foxIframe');
-      const btnFusball = document.getElementById('btn-fusball');
-      const btnFox = document.getElementById('btn-fox');
-
-      if (source === 'fox') {
-        fusball.style.display = 'none';
-        fox.style.display = 'block';
-        btnFusball.classList.remove('active');
-        btnFox.classList.add('active');
-      } else {
-        fox.style.display = 'none';
-        fusball.style.display = 'block';
-        btnFox.classList.remove('active');
-        btnFusball.classList.add('active');
-      }
-    }
-  </script>
 </body>
 </html>
